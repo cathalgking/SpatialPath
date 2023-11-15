@@ -10,6 +10,32 @@ write.table(spbar_siar3, file = "/PATH/SpatialPath/test_spbar7.txt", row.names =
 ## samtools 1.17 or greater is required for this process.
 for i in $(cat PATH/sample_spbars.txt) ; do samtools view -b -d CB:$i /PATH/outs/possorted_genome_bam.bam > $i.bam ; done
 
+## Once samtools is finished parsing the BAM file, featureCounts will be run on each per-spot BAM file to assign reads to Features.
+
+Command to generate counts with feature counts:
+
+featureCounts -T 32 -t exon -g gene_id -a /homes/feargal.ryan/databases/grch38/Homo_sapiens.GRCh38.109.gtf -o /homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/featureCounts/fCounts_siAR3_M14_D1.txt  /homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/bams_perSpot/*.bam
+
+-a annotation file for Human
+/homes/feargal.ryan/databases/grch38/Homo_sapiens.GRCh38.109.gtf
+
+featureCounts -T 32 -t exon -g gene_id 
+-a ~/databases/grcm38/Mus_musculus.GRCm38.99.gtf 
+-o featureCountstest.txt /homes/cathal.king/Devel/A1_spots/*/*bam
+
+This is installable via conda
+
+"featureCounts" "-T" "32" "-t" "exon" "-g" "gene_id" 
+"-a" "/homes/feargal.ryan/databases/grcm38/Mus_musculus.GRCm38.99.gtf"
+"-o" "/homes/cathal.king/Devel/featureCounts/featureCounts_A1_tumour.txt"
+"/homes/cathal.king/Devel/tumour_spot_barcodes/A1/tumour_spots/AAACGAGACGGTTGAT-1.bam"
+
+conda install -c bioconda subread
+ 
+featureCounts -T 32 -t exon -g gene_id 
+-a ~/databases/grcm38/Mus_musculus.GRCm38.99.gtf 
+-o featureCounts_A1.txt /homes/cathal.king/Devel/A1_spots/*/*bam
+
 
 
 ## At the end of the GSVA R script, there will be a csv file which has an activity score (based on the chosen pathway) for each Visium spot.
