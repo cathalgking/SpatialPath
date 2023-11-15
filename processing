@@ -40,3 +40,9 @@ featureCounts -T 32 -t exon -g gene_id
 
 
 ## At the end of the GSVA R script, there will be a csv file which has an activity score (based on the chosen pathway) for each Visium spot.
+## This file is then added to the Seurat object making sure that the barcodes are matched up correctly.
+
+
+##
+
+
