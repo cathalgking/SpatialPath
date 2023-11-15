@@ -9,3 +9,7 @@ write.table(spbar_siar3, file = "/PATH/SpatialPath/test_spbar7.txt", row.names =
 ## run samtools on the Visium BAM file, with a list of spbars as input so that it will parse down the BAM file to 1 BAM file per-spot.
 ## samtools 1.17 or greater is required for this process.
 for i in $(cat PATH/sample_spbars.txt) ; do samtools view -b -d CB:$i /PATH/outs/possorted_genome_bam.bam > $i.bam ; done
+
+
+
+## At the end of the GSVA R script, there will be a csv file which has an activity score (based on the chosen pathway) for each Visium spot.
