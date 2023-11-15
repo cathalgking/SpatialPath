@@ -1,8 +1,11 @@
 ## Colnames in a Seurat object are the 10x spatial barcodes
 ## for example TTGACAGGAGCTCCCG-1
-## Extract colnames from a Seurat object
 
-# extract
+## Extract colnames from a Seurat object
 spbar_siar3 <- colnames(siAR3_M14_D1)
 # write to a file
 write.table(spbar_siar3, file = "/PATH/SpatialPath/test_spbar7.txt", row.names = F, quote = F, col.names = F)
+
+## run samtools on the Visium BAM file, with a list of spbars as input so that it will parse down the BAM file to 1 BAM file per-spot.
+## samtools 1.17 or greater is required for this process.
+for i in $(cat PATH/sample_spbars.txt) ; do samtools view -b -d CB:$i /PATH/outs/possorted_genome_bam.bam > $i.bam ; done
