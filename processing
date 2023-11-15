@@ -37,6 +37,8 @@ featureCounts -T 32 -t exon -g gene_id
 -a ~/databases/grcm38/Mus_musculus.GRCm38.99.gtf 
 -o featureCounts_A1.txt /homes/cathal.king/Devel/A1_spots/*/*bam
 
+## The output file from featureCounts needs to be cleaned up so that it has genes (ENSXXX) as the rownames and 10x barcodes as the colnames.
+
 
 
 ## At the end of the GSVA R script, there will be a csv file which has an activity score (based on the chosen pathway) for each Visium spot.
