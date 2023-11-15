@@ -42,7 +42,85 @@ featureCounts -T 32 -t exon -g gene_id
 ## At the end of the GSVA R script, there will be a csv file which has an activity score (based on the chosen pathway) for each Visium spot.
 ## This file is then added to the Seurat object making sure that the barcodes are matched up correctly.
 
+## that process is shown here
 
-##
+## colour spots based on a selection of barcodes
+
+library(Seurat)
+library(SpatialExperiment)
+library(dplyr)
+library(tibble)
+#library(ggspavis)
+#library(Voyager)
+
+
+#####
+## Seurat object
+A1_seu <- readRDS("/Users/cathal.king/Documents/Projects/DL/Visium_Mouse/Seurat/Visium_mouse_Re_seurat_A1.rds")
+SpatialPlot(object = A1_seu)
+
+
+# path must contain a 10x "/outs/" folder
+# sample <- file.path("/Users/cathal.king/Documents/Projects/DL/Visium_Mouse/SpaceRanger_trial_grey/outs")
+# # read in
+# A1_spe <- read10xVisium(samples = sample, type = "sparse", images = "lowres")
+# A1_spe
+# # View image in SPE object
+# plotVisium(A1_spe)
+
+
+###########################################################
+## pathway df
+A_pathways <- read.csv(file = "/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/GSVA_results/A1_Per_spot_activity_scores.csv", row.names = 1)
+# colnames of the pathways df are the barcodes
+# rownames of the pathways df are the pathways
+
+# test
+# Remove the "_A1" from the end of each column name
+colnames(A_pathways) <- sub("_A1$", "", colnames(A_pathways))
+
+A_pathways_t <- as.data.frame(t(A_pathways))
+
+# copy the rownames column (the 10x barcodes) to a different column in the pathways df
+A_pathways_t <- A_pathways_t %>%
+  mutate(Barcode = rownames(.))
+
+###########################################################
+
+###########################################################
+### if using a select list of barcodes from 10x Loupe browser
+#barcodes_to_add <- read.table(file = "/Users/cathal.king/Documents/Projects/DL/spatial_plots/barcodes2.txt", header = F, col.names = "barcodes")
+barcodes_to_add <- read.csv(file = "/Users/cathal.king/Documents/Projects/DL/spatial_plots/A1_tumour_barcodes.csv", header = T, sep = ",")
+# drop the other column
+barcodes_to_add <- barcodes_to_add %>% select(-A1_tumour)
+
+# test
+# Remove the "-1" from the end of each column name
+colnames(A1_seu) <- sub("-1$", "", colnames(A1_seu))
+###########################################################
+
+
+# extract seu metadata
+meta_data_A1 <- A1_seu@meta.data
+
+# copy the rownames column (the 10x barcodes) to a different column in the meta_data
+meta_data_A1_new <- meta_data_A1 %>%
+  mutate(Barcode = rownames(.))
+
+#############
+## now join the pathways df to the extracted meta-data df
+meta_data_A1_joined <- left_join(x = meta_data_A1_new, y = A_pathways_t2, by = "Barcode", keep=T)
+
+
+### add that new meta data back into the Seurat object
+
+## add the meta-data column with the matched barcodes to the seurat object. each pathway 1-by-1
+A1_seu <- AddMetaData(object = A1_seu, metadata = meta_data_A1_joined, col.name = "GOBP_LYMPHOCYTE_ACTIVATION")
+
+A1_seu <- AddMetaData(object = A1_seu, metadata = meta_data_A1_joined, col.name = "GOBP_B_CELL_ACTIVATION")
+A1_seu <- AddMetaData(object = A1_seu, metadata = meta_data_A1_joined, col.name = "GOBP_EPITHELIAL_CELL_DIFFERENTIATION")
+A1_seu <- AddMetaData(object = A1_seu, metadata = meta_data_A1_joined, col.name = "GOBP_HORMONE_METABOLIC_PROCESS")
+
+
 
 
