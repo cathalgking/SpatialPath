@@ -2,9 +2,34 @@
 ## for example TTGACAGGAGCTCCCG-1
 
 ## Extract colnames from a Seurat object
+# just 1 Seurat object
 spbar_siar3 <- colnames(siAR3_M14_D1)
 # write to a file
 write.table(spbar_siar3, file = "/PATH/SpatialPath/test_spbar7.txt", row.names = F, quote = F, col.names = F)
+
+# Multiple Seurat objects in the Global environment
+#######
+# Get a list of all objects in the global environment
+all_objects <- ls()
+
+# Filter the objects that are Seurat objects
+seurat_objects <- all_objects[sapply(all_objects, function(obj) class(get(obj)) == "Seurat")]
+
+# Specify the directory where you want to save the files
+output_directory <- "/Users/cathal.king/Documents/Projects/LB/AR_kd/spbars/"
+
+# Loop through each Seurat object, extract colnames, and write to a file
+for (seurat_obj_name in seurat_objects) {
+  seurat_obj <- get(seurat_obj_name)
+  col_names <- colnames(seurat_obj)
+  
+  # Construct the file path based on the object name
+  file_path <- paste0(output_directory, seurat_obj_name, "_spbars.txt")
+  
+  # Write the colnames to a file
+  write.table(col_names, file = file_path, row.names = FALSE, quote = FALSE, col.names = FALSE)
+}
+
 
 
 ## run samtools on the Visium BAM file, with a list of spbars as input so that it will parse down the BAM file to 1 BAM file per-spot.
