@@ -38,8 +38,7 @@ for i in $(cat PATH/sample_spbars.txt) ; do samtools view -b -d CB:$i /PATH/outs
 
 ## Once samtools is finished parsing the BAM file, featureCounts will be run on each per-spot BAM file to assign reads to Features.
 
-Command to generate counts with feature counts:
-
+####### Command to generate counts with feature counts:
 featureCounts -T 32 -t exon -g gene_id -a /homes/feargal.ryan/databases/grch38/Homo_sapiens.GRCh38.109.gtf -o /homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/featureCounts/fCounts_siAR3_M14_D1.txt  /homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/bams_perSpot/*.bam
 
 -a annotation file for Human
