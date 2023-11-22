@@ -1,0 +1,303 @@
+---
+title: "GSVA_score_per_spot"
+output: html_document
+date: "2023-11-15"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r}
+#
+library(readxl)
+library(ggplot2)
+library(gridExtra)
+library(reshape)
+
+#meta_data = as.data.frame(read_xlsx("Meta data.xlsx",sheet = "Sheet1",))
+#rownames(meta_data) = meta_data$SampleID
+#/Users/cathal.king/Documents/Projects/DL/featureCounts_clean
+#raw_cnts = read.delim("/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/B1_featureCounts_clean.txt",sep="\t",row.names = 1,check.names = FALSE)
+A1_raw_cnts = read.delim("/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/A1_featureCounts_clean.txt",sep="\t",row.names = 1,check.names = FALSE)
+B1_raw_cnts = read.delim("/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/B1_featureCounts_clean.txt",sep="\t",row.names = 1,check.names = FALSE)
+C1_raw_cnts = read.delim("/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/C1_featureCounts_clean.txt",sep="\t",row.names = 1,check.names = FALSE)
+D1_raw_cnts = read.delim("/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/D1_featureCounts_clean.txt",sep="\t",row.names = 1,check.names = FALSE)
+
+raw_cnts = cbind(A1_raw_cnts,B1_raw_cnts,C1_raw_cnts,D1_raw_cnts)
+#meta_data = meta_data[rownames(meta_data) %in% colnames(raw_cnts),]
+#raw_cnts = raw_cnts[,rownames(meta_data)]
+#colnames(raw_cnts) == rownames(meta_data)
+
+
+#attributes = listAttributes(ensembl)
+ensids=rownames(raw_cnts)
+table(duplicated(ensids))
+
+## BiomaRt ##
+library(biomaRt)
+ensembl=useMart("ensembl")
+ensembl = useDataset("mmusculus_gene_ensembl",mart=ensembl)
+ens2gene = getBM(attributes=c('ensembl_gene_id','external_gene_name','gene_biotype','description','chromosome_name',"entrezgene_id","description"), 
+               filters = 'ensembl_gene_id', 
+                 values = ensids, 
+                 mart = ensembl)
+ens2gene = ens2gene[!duplicated(ens2gene$ensembl_gene_id),]
+rownames(ens2gene) = ens2gene$ensembl_gene_id
+
+
+### EdgeR ###
+library(edgeR)
+keep = apply(raw_cnts>10,1,sum) > 50
+table(keep)
+raw_cnts = raw_cnts[keep,]
+y = DGEList(counts=raw_cnts)
+y = calcNormFactors(y,method = "TMM")
+lcpm <- cpm(y, log=TRUE,normalized.lib.sizes = TRUE)
+
+
+## C5 ontology Gene Sets
+library(msigdbr)
+msig.df = as.data.frame(msigdbr(species = "Mus musculus",category = "C5"))
+msigDB = by(msig.df$gene_symbol,
+               msig.df$gs_name,
+               function(x) as.character(x))
+
+msigDB = msigDB[c("GOBP_B_CELL_ACTIVATION","GOBP_EPITHELIAL_CELL_DIFFERENTIATION","GOBP_HORMONE_METABOLIC_PROCESS","GOBP_LYMPHOCYTE_ACTIVATION")]
+names(msigDB)  
+
+class(msigDB)
+
+msigDB = as.list(msigDB)
+class(msigDB)
+
+my_modules = list()
+my_modules[["GOBP_LYMPHOCYTE_ACTIVATION"]] = msigDB$GOBP_LYMPHOCYTE_ACTIVATION
+my_modules[["GOBP_B_CELL_ACTIVATION"]] = msigDB$GOBP_B_CELL_ACTIVATION
+my_modules[["GOBP_EPITHELIAL_CELL_DIFFERENTIATION"]] = msigDB$GOBP_EPITHELIAL_CELL_DIFFERENTIATION
+my_modules[["GOBP_HORMONE_METABOLIC_PROCESS"]] = msigDB$GOBP_HORMONE_METABOLIC_PROCESS
+
+## Relabel rows with gene name instead of ensembl gene ids
+lcpm_counts_TMM_gene = as.data.frame(lcpm)
+lcpm_counts_TMM_gene$Gene = ens2gene[rownames(lcpm),"external_gene_name"]
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[!is.na(lcpm_counts_TMM_gene$Gene),]
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[!duplicated(lcpm_counts_TMM_gene$Gene),]
+rownames(lcpm_counts_TMM_gene) = lcpm_counts_TMM_gene$Gene
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[,colnames(lcpm_counts_TMM_gene) != "Gene"]
+lcpm_counts_TMM_gene = as.matrix(lcpm_counts_TMM_gene)
+lcpm_counts_TMM_gene[is.na(lcpm_counts_TMM_gene)]
+lcpm_counts_TMM_gene = t(t(lcpm_counts_TMM_gene))
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[rownames(lcpm_counts_TMM_gene) %in% unlist(my_modules),]
+
+library(GSVA)
+### GSVA to calculate module activity scores
+all_btm.gsva = gsva(expr=lcpm_counts_TMM_gene, gset.idx.list = (my_modules),min.sz=4)
+colnames(all_btm.gsva)
+
+A1_gsva = all_btm.gsva[,grepl("_A1",colnames(all_btm.gsva))]
+B1_gsva = all_btm.gsva[,grepl("_B1",colnames(all_btm.gsva))]
+C1_gsva = all_btm.gsva[,grepl("_C1",colnames(all_btm.gsva))]
+D1_gsva = all_btm.gsva[,grepl("_D1",colnames(all_btm.gsva))]
+#
+write.csv(D1_gsva, file="/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/GSVA_results/combined_analysis/D1_GSVA_activity_scores.csv")
+
+# /Users/cathal.king/Documents/Projects/DL/featureCounts_clean/GSVA_results
+
+
+xxx = data.frame(meta_data,t(all_btm.gsva))
+grid.arrange(
+ggplot(xxx,aes(x=Group,y=GOBP_B_CELL_ACTIVATION))+geom_boxplot()+geom_jitter(width=0.03)+theme_classic(),
+ggplot(xxx,aes(x=Group,y=GOBP_EPITHELIAL_CELL_DIFFERENTIATION))+geom_boxplot()+geom_jitter(width=0.03)+theme_classic(),
+ggplot(xxx,aes(x=Group,y=GOBP_HORMONE_METABOLIC_PROCESS))+geom_boxplot()+geom_jitter(width=0.03)+theme_classic(),nrow=1)
+
+```
+
+# do the same for the prostate data
+
+```{r}
+
+# Set the directory path
+directory_path <- "/Users/cathal.king/Documents/Projects/LB/AR_kd/fCounts/"
+
+# Get a list of files ending in "processed2.txt"
+files <- list.files(path = directory_path, pattern = "processed2.txt", full.names = TRUE)
+
+# Create an empty list to store the data frames
+data_list <- list()
+
+# Loop through each file and read.txt
+for (file in files) {
+  # Extract the file name without extension and remove "_processed2"
+  variable_name <- gsub("_processed2", "", tools::file_path_sans_ext(basename(file)))
+  
+  # Read the file into a data frame
+  data <- read.table(file, header = TRUE, sep = "\t", row.names = 1)  # Adjust the arguments based on your file format
+    
+  # Assign the data frame to a variable with a modified name
+  assign(variable_name, data)
+  
+  # Optionally, store the data frame in the list
+  data_list[[variable_name]] <- data
+}
+
+all_colnames <- c(colnames(siAR1_F28_D1), colnames(siAR2_M14_B1), colnames(siAR3_M14_D1),
+  colnames(siCon1_F28_C1), colnames(siCon2_M14_A1), colnames(siCon3_M14_C1))
+
+
+
+colnames(siAR1_F28_D1) = paste("siAR1_F28_D1",colnames(siAR1_F28_D1),sep="_")
+colnames(siAR2_M14_B1) = paste("siAR2_M14_B1",colnames(siAR2_M14_B1),sep="_")
+colnames(siAR3_M14_D1) = paste("siAR3_M14_D1",colnames(siAR3_M14_D1),sep="_")
+colnames(siCon1_F28_C1) = paste("siCon1_F28_C1",colnames(siCon1_F28_C1),sep="_")
+colnames(siCon2_M14_A1) = paste("siCon2_M14_A1",colnames(siCon2_M14_A1),sep="_")
+colnames(siCon3_M14_C1) = paste("siCon3_M14_C1",colnames(siCon3_M14_C1),sep="_")
+
+raw_cnts = cbind(siAR1_F28_D1, siAR2_M14_B1, siAR3_M14_D1,
+                 siCon1_F28_C1, siCon2_M14_A1, siCon3_M14_C1)
+
+
+
+##### pathways
+#/Users/cathal.king/Documents/Projects/LB/AR_kd/pathways/Lipid_and_Metabolism_GeneSets_Pathways-selected
+pathways <- list.files("/Users/cathal.king/Documents/Projects/LB/AR_kd/pathways/Lipid_and_Metabolism_GeneSets_Pathways-selected/")
+# Remove ".grp" from each element
+pathways <- gsub("\\.grp", "", pathways)
+
+##
+split_pathways = unlist(strsplit(pathways,split = "\\."))
+gobp_pathways = split_pathways[grepl("GOBP",split_pathways)]
+KEGG_pathways = split_pathways[grepl("KEGG",split_pathways)]
+all_pathways <- c(gobp_pathways, KEGG_pathways)
+
+ensids=rownames(raw_cnts)
+## BiomaRt ##
+library(biomaRt)
+ensembl=useMart("ensembl")
+ensembl = useDataset("hsapiens_gene_ensembl",mart=ensembl)
+# save as RDS file
+ens2gene = getBM(attributes=c('ensembl_gene_id','external_gene_name'), 
+               filters = 'ensembl_gene_id', 
+                 values = ensids, 
+                 mart = ensembl)
+
+ens2gene = ens2gene[!duplicated(ens2gene$ensembl_gene_id),]
+# assign rownames of 
+rownames(ens2gene) <- ens2gene$ensembl_gene_id
+
+
+
+### EdgeR ###
+library(edgeR)
+keep = apply(raw_cnts>10,1,sum) > ncol(raw_cnts)*0.02 # only keep at least 10 reads (first number) in 2% of spots (second number)
+table(keep)
+raw_cnts = raw_cnts[keep,]
+y = DGEList(counts=raw_cnts)
+y = calcNormFactors(y,method = "TMM")
+lcpm <- cpm(y, log=TRUE,normalized.lib.sizes = TRUE)
+
+
+## MSigDB
+library(msigdbr)
+msig.df = as.data.frame(msigdbr(species = "Homo sapiens"))
+msigDB = by(msig.df$gene_symbol,
+               msig.df$gs_name,
+               function(x) as.character(x))
+
+all_pathways %in% names(msigDB) # check
+
+#Make a new clean list of gene sets. 
+my_modules = list()
+for (geneset in all_pathways){
+  print(geneset)
+  gene_ids = unlist(msigDB[geneset])
+  names(gene_ids) = NULL
+  my_modules[[geneset]] = gene_ids
+
+}
+
+# processing, checking gene names etc
+lcpm_counts_TMM_gene = as.data.frame(lcpm)
+lcpm_counts_TMM_gene$Gene = ens2gene[rownames(lcpm),"external_gene_name"]
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[!is.na(lcpm_counts_TMM_gene$Gene),]
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[!duplicated(lcpm_counts_TMM_gene$Gene),]
+rownames(lcpm_counts_TMM_gene) = lcpm_counts_TMM_gene$Gene
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[,colnames(lcpm_counts_TMM_gene) != "Gene"]
+lcpm_counts_TMM_gene = as.matrix(lcpm_counts_TMM_gene)
+lcpm_counts_TMM_gene[is.na(lcpm_counts_TMM_gene)]
+lcpm_counts_TMM_gene = t(t(lcpm_counts_TMM_gene))
+lcpm_counts_TMM_gene = lcpm_counts_TMM_gene[rownames(lcpm_counts_TMM_gene) %in% unlist(my_modules),]
+
+
+library(GSVA)
+### GSVA to calculate module activity scores
+all_pathways.gsva = gsva(expr=lcpm_counts_TMM_gene, gset.idx.list = as.list((my_modules)),min.sz=4)
+
+rownames(all_pathways.gsva)
+
+#Subset to individual samples & write out as a CSV
+siAR1_F28_D1_gsva = all_pathways.gsva[,grepl("siAR1_F28_D1",colnames(all_pathways.gsva))]
+siCon1_F28_C1_gsva = all_pathways.gsva[,grepl("siCon1_F28_C1",colnames(all_pathways.gsva))]
+siCon2_M14_A1_gsva = all_pathways.gsva[,grepl("siCon2_M14_A1",colnames(all_pathways.gsva))]
+siAR2_M14_B1_gsva = all_pathways.gsva[,grepl("siAR2_M14_B1",colnames(all_pathways.gsva))]
+siCon3_M14_C1_gsva = all_pathways.gsva[,grepl("siCon3_M14_C1",colnames(all_pathways.gsva))]
+siAR3_M14_D1_gsva = all_pathways.gsva[,grepl("siAR3_M14_D1",colnames(all_pathways.gsva))]
+
+# clean each GSVA pathway table to only have sp bars with -1
+# Assuming your data frame is called 'your_data' and it has columns with the specified colnames pattern
+# Replace 'your_data' with the actual name of your data frame
+
+# Get the current column names
+current_colnames <- colnames(siAR1_F28_D1_gsva)
+
+# Remove "siAR1_F28_D1_" from each colname and replace ".1" with "-1"
+new_colnames <- gsub("siAR1_F28_D1_", "", current_colnames)
+new_colnames <- gsub("\\.1$", "-1", new_colnames)
+
+# Assign the new column names to the data frame
+colnames(siAR1_F28_D1_gsva) <- new_colnames
+
+## transpose that GSVA dataframe
+siAR1_F28_D1_gsva_t <- as.data.frame(t(siAR1_F28_D1_gsva))
+
+# export that table
+# /Users/cathal.king/Documents/Projects/LB/AR_kd/pathways
+write.csv(x = siAR1_F28_D1_gsva_t, file = "/Users/cathal.king/Documents/Projects/LB/AR_kd/pathways/GSVA_scores_per_spot_cleaned/siAR1_F28_D1_gsva_t.csv")
+
+##
+
+#Subset to individual samples & write out as a CSV
+#A1_gsva = all_btm.gsva[,grepl("_A1",colnames(all_btm.gsva))]
+#B1_gsva = all_btm.gsva[,grepl("_B1",colnames(all_btm.gsva))]
+#C1_gsva = all_btm.gsva[,grepl("_C1",colnames(all_btm.gsva))]
+#D1_gsva = all_btm.gsva[,grepl("_D1",colnames(all_btm.gsva))]
+
+#write.csv(D1_gsva, file="/Users/cathal.king/Documents/Projects/DL/featureCounts_clean/GSVA_results/combined_analysis/D1_GSVA_activity_scores.csv")
+
+
+```
+
+## add these dataframes to the Seurat objects
+
+```{r}
+# read in Seurat objects
+# or read in saved data
+seurat_objects <- load("/Users/cathal.king/Documents/Projects/LB/AR_kd/new_outs/seurat_objects_unprocessed.RData")
+
+## add to siAR1_F28_D1
+siAR1_F28_D1
+
+## pathway df
+siAR1_F28_D1_gsva
+
+
+```
+
+
+
+
+
+
+
+
+
+
