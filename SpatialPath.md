@@ -1,5 +1,6 @@
 # SpatialPath
 
+* SpatialGSVA
 * PathMapR
 * SpatialSignatureMapper
 
