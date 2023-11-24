@@ -1,9 +1,8 @@
 # SpatialPath
 
-## Colnames in a Seurat object are the 10x spatial barcodes
-## for example TTGACAGGAGCTCCCG-1
+Colnames in a Seurat object are the 10x spatial barcodes for example TTGACAGGAGCTCCCG-1
 
-## Extract colnames from a Seurat object
+### Extract colnames from a Seurat object
 # just 1 Seurat object
 spbar_siar3 <- colnames(siAR3_M14_D1)
 # write to a file
