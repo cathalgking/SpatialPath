@@ -1,5 +1,8 @@
 # SpatialPath
 
+* PathMapR
+* SpatialSignatureMapper
+
 Colnames in a Seurat object are the 10x spatial barcodes for example TTGACAGGAGCTCCCG-1
 
 ### Extract colnames from a Seurat object
