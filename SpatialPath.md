@@ -1,5 +1,8 @@
 # SpatialPath
 
+* Aim: to visualise pathway level activity scores across a spatial transcriptomics image.
+
+## Other potential names:
 * SpatialGSVA
 * PathMapR
 * SpatialSignatureMapper
