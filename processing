@@ -1,3 +1,6 @@
+
+
+
 ## Colnames in a Seurat object are the 10x spatial barcodes
 ## for example TTGACAGGAGCTCCCG-1
 
@@ -30,6 +33,10 @@ for (seurat_obj_name in seurat_objects) {
   write.table(col_names, file = file_path, row.names = FALSE, quote = FALSE, col.names = FALSE)
 }
 
+
+## sinto is much quicker than samtools
+conda activate /cancer/storage/tools/conda_apps/sinto/env/
+sinto -v # check installation
 
 
 ## run samtools on the Visium BAM file, with a list of spbars as input so that it will parse down the BAM file to 1 BAM file per-spot.
