@@ -38,6 +38,18 @@ for (seurat_obj_name in seurat_objects) {
 conda activate /cancer/storage/tools/conda_apps/sinto/env/
 sinto -v # check installation
 
+# example
+source /homes/paul.wang/mambaforge/bin/activate /hpc/capacity/tools/testing/sinto/env
+
+# F28C
+  sinto filterbarcodes \
+  --bam /homes/cathal.king/LB/AR_kd/SR_F28_067_C1/outs/possorted_genome_bam.bam \
+  --nproc 10 \
+  --cells /homes/cathal.king/LB/AR_kd/SpatialPath/spbar_lists/siCon1_F28_C1_spbars_new.txt \
+  --outdir /homes/cathal.king/LB/AR_kd/SpatialPath/sinto_all/siCon1_F28_C1_spbars
+
+
+
 
 ## run samtools on the Visium BAM file, with a list of spbars as input so that it will parse down the BAM file to 1 BAM file per-spot.
 ## samtools 1.17 or greater is required for this process.
