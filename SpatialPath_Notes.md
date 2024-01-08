@@ -10,12 +10,12 @@
 5. Use the GSVA R package to assign pathway scores per spot.
 6. Merge GSVA output to spatial object and visualise results.
 
-## Other potential names:
+### Other potential names:
 * SpatialGSVA
 * PathMapR
 * SpatialSignatureMapper
 
-## Step by step notes on running the pipeline:
+## **Step by step notes on running the pipeline:**
 
 ### 1. Aligning the data with SpaceRanger
 SpaceRanger is the 10x software used to align sequencing reads to Visium spots. It is a tool that is ran on the Linux/Unix command line and an example is shown here:
