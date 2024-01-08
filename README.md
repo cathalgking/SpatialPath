@@ -1,3 +1,3 @@
 # SpatialPath
-Pathway level activity scores across a spatial transcriptomics dataset.
+Pathway level activity scores across spatial transcriptomics datasets.
 
