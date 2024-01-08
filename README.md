@@ -1,4 +1,3 @@
 # SpatialPath
-code to assign pathway scores per spatial spot
-
+Pathway level activity scores across a spatial transcriptomics dataset.
 
