@@ -77,12 +77,12 @@ Use featureCounts to assign reads to features. This command is ran on each BAM f
 ```{bash}
 featureCounts -T 32 -t exon -g gene_id 
 -a ~/databases/grcm38/Mus_musculus.GRCm38.99.gtf 
--o featureCounts_output.txt /homes/cathal.king/Devel/A1_spots/*/*bam
+-o featureCounts_output.txt /homes/PATH/to/Parsed_BAMS/A1_spots/*/*bam
 ```
 
 ### 4. Clean the output from featureCounts
 
-This step might vary depending on the data but at the end the featureCounts table should have genes (ENSXXX) as the rownames and 10x spatial barcodes as the colnames.
+This step might vary depending on the data but at the end the featureCounts table should have genes (ENSXXX) as the rownames and 10x spatial barcodes (e.g AACACTTGGCAAGGAA-1) as the colnames.
 
 ```{bash}
 # remove the first row from the file which just has info on the fCount command that was used
