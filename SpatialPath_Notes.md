@@ -18,7 +18,7 @@
 ## **Step by step notes on running the pipeline:**
 
 ### 1. Aligning the data with SpaceRanger
-SpaceRanger is the 10x software used to align sequencing reads to Visium spots. It is a tool that is ran on the Linux/Unix command line and an example is shown here:
+SpaceRanger is the 10x software used to align sequencing reads to Visium spots. It is a tool that is ran on the Linux/Unix command line and an example is shown below. The full list of options available for spaceranger count are given here --> https://www.10xgenomics.com/support/software/space-ranger/latest/analysis/running-pipelines/command-line-arguments
 
 ```{bash}
 spaceranger count --id=V10U29_117_B1_Re_run \
@@ -34,6 +34,8 @@ spaceranger count --id=V10U29_117_B1_Re_run \
 ```
 
 ### 2. Parsing the BAM file
+
+There is 2 methods that achieve the exact same thing for this step.
 
 #### Method 1: samtools 
 One of the outputs of SpaceRanger is the BAM file which contains the aligned reads. This file can be parsed down to only include reads from a single spatial spot or multiple spots. Each entry of the output BAM file contains a ```CB``` flag and this is used for this process. The user only needs to provide a list of spatial barcodes (spbars.txt) in a text file and the ```samtools view``` command is then as follows:
