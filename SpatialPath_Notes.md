@@ -15,6 +15,15 @@
 * PathMapR
 * SpatialSignatureMapper
 
+### Public Dataset
+
+**10x Genomics**
+https://www.10xgenomics.com/datasets
+
+**MGI**
+https://db.cngb.org/stomics/datasets/
+
+
 ## **Step by step notes on running the pipeline:**
 
 ### 1. Aligning the data with SpaceRanger
@@ -35,7 +44,13 @@ spaceranger count --id=V10U29_117_B1_Re_run \
 
 ### 2. Parsing the BAM file
 
-There is 2 methods that achieve the exact same thing for this step.
+There is 2 methods that achieve the exact same thing for this step. 
+The files that are required are the BAM file from SpaceRanger which is found in the ```/outs/``` folder. 
+
+Also the spatial barcode file which is a text file of spatial barcodes for each Visium spot. This can be gotten from the first column of the file ```/outs/spatial/tissue_positions.csv``` from SpaceRanger outputs. An example of this file is found here --> ```/homes/cathal.king/LB/AR_kd/SpatialPath/spbar_lists/siCon3_M14_C1_spbars_new.txt```
+
+For sinto, a file or comma-separated list of cell barcodes will suffice. However, a second column is required which is supposed to be the group that each cell belongs to. For this column, I just copied the 2nd column. This might be something else to optimize.
+
 
 #### Method 1: samtools 
 One of the outputs of SpaceRanger is the BAM file which contains the aligned reads. This file can be parsed down to only include reads from a single spatial spot or multiple spots. Each entry of the output BAM file contains a ```CB``` flag and this is used for this process. The user only needs to provide a list of spatial barcodes (spbars.txt) in a text file and the ```samtools view``` command is then as follows:
