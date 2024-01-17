@@ -53,6 +53,7 @@ For sinto, a file or comma-separated list of cell barcodes will suffice. However
 
 
 #### Method 1: samtools 
+The version of samtools used (**v1.19**) is important here as the only versions dont have that functionality.
 One of the outputs of SpaceRanger is the BAM file which contains the aligned reads. This file can be parsed down to only include reads from a single spatial spot or multiple spots. Each entry of the output BAM file contains a ```CB``` flag and this is used for this process. The user only needs to provide a list of spatial barcodes (spbars.txt) in a text file and the ```samtools view``` command is then as follows:
 
 ```{bash}
