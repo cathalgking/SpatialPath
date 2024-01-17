@@ -127,10 +127,9 @@ At the end of the GSVA R script, there will be a csv file containing an activity
 * The Spatial R object could be a Seurat object or a SpatialExperiment (SPE) object. The principle is the same for both but the methods differ slightly. Let us work with a Seurat object now for simplicity.
 
 ***Example meta-data of a Seurat object***
+<img width="704" alt="Screenshot 2024-01-17 at 8 53 31 pm" src="https://github.com/cathalgking/SpatialPath/assets/32261323/59635942-32b0-4b58-babb-7faabbf1d26c">
 
-<img width="711" alt="Screenshot 2024-01-17 at 8 38 36 pm" src="https://github.com/cathalgking/SpatialPath/assets/32261323/18952696-bc83-4984-9633-76aa2e8b89b1">
-
-
+Steps to add GSVA scores
 ```{R}
 library(Seurat)
 # read in SpaceRanger output and construct a Seurat object
