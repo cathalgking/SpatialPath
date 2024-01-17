@@ -119,7 +119,14 @@ Import the featureCount cleaned output into R. Run a GSVA analysis on that data 
 
 ### 6. 
 
-At the end of the GSVA R script, there will be a csv file which has an activity score (based on the chosen pathway) for each Visium spot. This file is then added to the Seurat object (or Spatial object) making sure that the barcodes are matched up correctly.
+At the end of the GSVA R script, there will be a csv file which has an activity score (per pathway) for each Visium spot. This file is then added to the meta-data slot of the Spatial object containing the Visium sample. It is essentially joining two columns together based on a variable which is the 10x barcode column in the Spatial R object.
+
+* Ensure that the GSVA scores are joined to the object wrt the 10x barcodes (colnames). This is a **vital** step as it is assigning a GSVA score (as calculated above) to each spot.
+
+
+***Example meta-data of a Seurat object***
+<img width="711" alt="Screenshot 2024-01-17 at 8 38 36 pm" src="https://github.com/cathalgking/SpatialPath/assets/32261323/18952696-bc83-4984-9633-76aa2e8b89b1">
+
 
 ```{R}
 # read in SpaceRanger output and construct a Seurat object
