@@ -119,7 +119,7 @@ Import the featureCount cleaned output into R. Run a GSVA analysis on that data 
 
 ### 6. Merge GSVA output to spatial object and visualise results.
 
-At the end of the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. This data is then added to the meta-data slot of the Spatial object containing the Visium sample. It is essentially joining two columns together based on a variable which is the 10x barcode column (colnames) in the Spatial R object.
+After running the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. This data is then added to the meta-data slot of the Spatial object containing the Visium sample. It is essentially joining two columns together based on a variable which is the 10x barcode column (colnames) in the Spatial R object.
 
 
 
@@ -133,7 +133,21 @@ At the end of the GSVA R script, there will be a csv file containing an activity
 Steps to add GSVA scores
 ```{R}
 library(Seurat)
-# read in SpaceRanger output and construct a Seurat object
-data <- 
+
+# the directory containing the SpaceRanger "/outs/" folder
+data_dir <- "/Users/cathal.king/Documents/Projects/LB/AR_kd/new_outs/new_outs/siAR1_F28_D1/"
+
+# create a Seurat object
+seu_object <- Seurat::Load10X_Spatial(data.dir = data_dir)
+
+# ensure Seurat object is loaded correctly. It should say something like "An object of class Seurat".
+seu_object
+
+## Examine the meta-data of this Seurat object. This can be accessed multiple ways. 
+# start with
+head(seu_object) # this should look like the above screen-shot
+
+# write to a seperate
+seu_meta <- seu_object@meta.data
 ```
 
