@@ -15,7 +15,7 @@
 * PathMapR
 * SpatialSignatureMapper
 
-### Public Dataset
+### Public Spatial Datasets
 
 **10x Genomics**
 https://www.10xgenomics.com/datasets
