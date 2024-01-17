@@ -119,7 +119,7 @@ Import the featureCount cleaned output into R. Run a GSVA analysis on that data 
 
 ### 6. Merge GSVA output to spatial object and visualise results.
 
-After running the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. An example of this data table looks like the below.
+After running the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. An example of this data table looks like the below. This table might have been cleaned up a little for example with the names of the pathways.
 
 
 <img width="817" alt="Screenshot 2024-01-18 at 9 37 26 am" src="https://github.com/cathalgking/SpatialPath/assets/32261323/47369dec-6780-47b3-8607-7610187f887d">
