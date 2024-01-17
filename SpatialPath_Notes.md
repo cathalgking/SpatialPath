@@ -123,8 +123,8 @@ At the end of the GSVA R script, there will be a csv file containing an activity
 
 
 
-* Ensure that the GSVA scores are joined to the object wrt the 10x barcodes (colnames). This is a **vital** step as it is assigning a GSVA score (as calculated above) to each spot.
-* The Spatial R object could be a Seurat object or a SpatialExperiment object. The principle is the same for both but the methods differ slightly. Let us work with a Seurat object now for simplicity.
+* Ensure that the GSVA scores are joined to the object wrt the 10x barcodes (colnames). It is **vital** that this step is done correctly because otherwise the wrong GSVA scores will be assigned to the wrong Visium spots.
+* The Spatial R object could be a Seurat object or a SpatialExperiment (SPE) object. The principle is the same for both but the methods differ slightly. Let us work with a Seurat object now for simplicity.
 
 ***Example meta-data of a Seurat object***
 
@@ -132,6 +132,7 @@ At the end of the GSVA R script, there will be a csv file containing an activity
 
 
 ```{R}
+library(Seurat)
 # read in SpaceRanger output and construct a Seurat object
 data <- 
 ```
