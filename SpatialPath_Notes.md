@@ -119,7 +119,14 @@ Import the featureCount cleaned output into R. Run a GSVA analysis on that data 
 
 ### 6. Merge GSVA output to spatial object and visualise results.
 
-After running the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. This data is then added to the meta-data slot of the Spatial object containing the Visium sample. It is essentially joining two columns together based on a variable which is the 10x barcode column (colnames) in the Spatial R object.
+After running the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. An example of this data table looks like the below.
+
+
+<img width="817" alt="Screenshot 2024-01-18 at 9 37 26 am" src="https://github.com/cathalgking/SpatialPath/assets/32261323/47369dec-6780-47b3-8607-7610187f887d">
+
+
+
+This data is then added to the meta-data slot of the Spatial object containing the Visium sample. It is essentially joining two columns together based on a variable which is the 10x barcode column (colnames) in the Spatial R object.
 
 
 
@@ -131,6 +138,9 @@ After running the GSVA R script, there will be a csv file containing an activity
 <img width="704" alt="Screenshot 2024-01-17 at 8 53 31 pm" src="https://github.com/cathalgking/SpatialPath/assets/32261323/59635942-32b0-4b58-babb-7faabbf1d26c">
 
 Steps to add GSVA scores
+
+1- Read in Visium data and create a Seurat object
+
 ```{R}
 library(Seurat)
 
