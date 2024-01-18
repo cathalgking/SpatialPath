@@ -139,9 +139,13 @@ This data is then added to the meta-data slot of the Spatial object containing t
 Steps to add GSVA scores
 
 1-Read in Visium data and create a Seurat object
+
 2-Extract the meta-data in the Seu object to a seperate data-frame
+
 3-Read in the GSVA scores df
+
 4-Append the GSVA scores df to the extracted meta-data df.
+
 5-Add that new df back into the Seurat object meta-data.
 
 ```{R}
