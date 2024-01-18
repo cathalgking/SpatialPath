@@ -134,7 +134,8 @@ This data is then added to the meta-data slot of the Spatial object containing t
 
 ***Example meta-data of a Seurat object***
 
-<img width="704" alt="Screenshot 2024-01-17 at 8 53 31 pm" src="https://github.com/cathalgking/SpatialPath/assets/32261323/59635942-32b0-4b58-babb-7faabbf1d26c">
+<img width="519" alt="Screenshot 2024-01-18 at 10 38 03 am" src="https://github.com/cathalgking/SpatialPath/assets/32261323/6ae038df-a014-4ad5-b0c1-a2945b403148">
+
 
 Steps to add GSVA scores
 
