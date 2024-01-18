@@ -151,6 +151,7 @@ Steps to add GSVA scores
 
 ```{R}
 library(Seurat)
+library(SeuratObject)
 
 # the directory containing the SpaceRanger "/outs/" folder
 data_dir <- "/Users/cathal.king/Documents/Projects/LB/AR_kd/new_outs/new_outs/siAR1_F28_D1/"
@@ -190,4 +191,12 @@ seu_object <- AddMetaData(object = seu_object, metadata = meta_data_joined, col.
 # check the meta-data slot again. It should now contain the pathway column.
 head(seu_object)
 ```
+
+* This step can probably optimised a lot more. Just exercising caution for now in going step-by-step.
+* Sometimes the order of the barcodes is the same from the Seu object and the GSVA object and a column bind would do the same thing.
+* The ```AddMetaData``` function is basically a column bind and it does not re-order the column to match when joining.
+
+
+
+
 
