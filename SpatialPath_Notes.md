@@ -121,8 +121,7 @@ Import the featureCount cleaned output into R. Run a GSVA analysis on that data 
 
 After running the GSVA R script, there will be a csv file containing an activity pathway score for each Visium spot. An example of this data table looks like the below. This table might have been cleaned up a little for example with the names of the pathways.
 
-
-<img width="817" alt="Screenshot 2024-01-18 at 9 37 26 am" src="https://github.com/cathalgking/SpatialPath/assets/32261323/47369dec-6780-47b3-8607-7610187f887d">
+<img width="533" alt="Screenshot 2024-01-18 at 10 34 02 am" src="https://github.com/cathalgking/SpatialPath/assets/32261323/eb0358bd-b141-43e7-adc4-051792ad996d">
 
 
 
@@ -139,7 +138,11 @@ This data is then added to the meta-data slot of the Spatial object containing t
 
 Steps to add GSVA scores
 
-1- Read in Visium data and create a Seurat object
+1-Read in Visium data and create a Seurat object
+2-Extract the meta-data in the Seu object to a seperate data-frame
+3-Read in the GSVA scores df
+4-Append the GSVA scores df to the extracted meta-data df.
+5-Add that new df back into the Seurat object meta-data.
 
 ```{R}
 library(Seurat)
@@ -159,5 +162,27 @@ head(seu_object) # this should look like the above screen-shot
 
 # write to a seperate
 seu_meta <- seu_object@meta.data
+
+# read in GSVA table
+GSVA_paths <- read.csv("/Users/cathal.king/Documents/Projects/LB/AR_kd/pathways/GSVA_scores_per_spot_cleaned/siAR1_F28_D1_gsva_transposed.csv")
+GSVA_paths <- GSVA_paths[,1:2] # only keep 1 pathway for simplicity
+
+# transpose pathways df
+#GSVA_paths_t <- t(GSVA_paths)
+
+# copy the rownames column (the 10x barcodes) to a different column in the meta_data. This is so we can check that the join was done correctly.
+seu_meta_new <- seu_meta %>%
+  mutate(Barcode = rownames(.))
+
+## now join the pathways df to the extracted meta-data df
+meta_data_joined <- left_join(x = seu_meta_new, y = GSVA_paths, by = "Barcode", keep=T)
+
+### add that new meta data back into the Seurat object
+
+## add the meta-data column with the matched barcodes to the seurat object. each pathway 1-by-1
+seu_object <- AddMetaData(object = seu_object, metadata = meta_data_joined, col.name = "GOBP_ANDROGEN_RECEPTOR_SIGNALING_PATHWAY")
+
+# check the meta-data slot again. It should now contain the pathway column.
+head(seu_object)
 ```
 
