@@ -196,7 +196,17 @@ head(seu_object)
 * Sometimes the order of the barcodes is the same from the Seu object and the GSVA object and a column bind would do the same thing.
 * The ```AddMetaData``` function is basically a column bind and it does not re-order the column to match when joining.
 
+### 7. Plot the result
+* The pathway scores should now be added to the spatial object.
+* Plot the result by referring to the ```group.by``` argument in the ```SpatialPlot()``` function.
+* This is a Seurat function.
 
+```{r}
+## plot it 
+SpatialPlot(object = A1_seu, group.by = "GOBP_LYMPHOCYTE_ACTIVATION", pt.size.factor = 2)
+
+SpatialFeaturePlot(A1_seu, features = "GOBP_LYMPHOCYTE_ACTIVATION", pt.size.factor = 2.8)
+```
 
 
 
