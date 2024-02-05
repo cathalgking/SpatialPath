@@ -1,6 +1,6 @@
 # SpatialPath
 
-## **Aim**: GSVA Pathway Analysis for Spatial Transcriptomics data.
+## **Aim**: Pathway Analysis for Spatial Transcriptomics data.
 
 ### The main steps are:
 1. Align the data with SpaceRanger (***optional***)
