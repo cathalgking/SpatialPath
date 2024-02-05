@@ -20,6 +20,9 @@
 **10x Genomics**
 https://www.10xgenomics.com/datasets
 
+**10x Genomics Mouse Saggital Brain dataset as shown in the Seurat 10x Visium tutorial**
+https://www.10xgenomics.com/datasets/mouse-brain-serial-section-2-sagittal-anterior-1-standard
+
 **MGI**
 https://db.cngb.org/stomics/datasets/
 
