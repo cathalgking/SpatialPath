@@ -67,26 +67,7 @@ featureCounts -T 32 -t exon -g gene_id
 -a ~/databases/grcm38/Mus_musculus.GRCm38.99.gtf 
 -o featureCountstest.txt /homes/cathal.king/Devel/A1_spots/*/*bam
 
-This is installable via conda
 
-"featureCounts" "-T" "32" "-t" "exon" "-g" "gene_id" 
-"-a" "/homes/feargal.ryan/databases/grcm38/Mus_musculus.GRCm38.99.gtf"
-"-o" "/homes/cathal.king/Devel/featureCounts/featureCounts_A1_tumour.txt"
-"/homes/cathal.king/Devel/tumour_spot_barcodes/A1/tumour_spots/AAACGAGACGGTTGAT-1.bam"
-
-conda install -c bioconda subread
- 
-featureCounts -T 32 -t exon -g gene_id 
--a ~/databases/grcm38/Mus_musculus.GRCm38.99.gtf 
--o featureCounts_A1.txt /homes/cathal.king/Devel/A1_spots/*/*bam
-
-## The output file from featureCounts needs to be cleaned up so that it has genes (ENSXXX) as the rownames and 10x barcodes as the colnames.
-
-# remove the first row from the file which just has info on the fCount command
-tail -n +2 fCounts_siAR3_M14_D1.txt > output.txt
-
-# then remove the 2nd to the 6th column
-cut -f 1,7- output3.txt > output5.txt
 
 # remove the PATH string from the beginning of each column name
 #sed 's#/homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/bams_perSpot/##g' output5.txt > output6.txt
