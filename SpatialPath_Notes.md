@@ -43,6 +43,7 @@ spaceranger count --id=V10U29_117_B1_Re_run \
  --loupe-alignment=/homes/cathal.king/DL/Visium2/JSON_Alignments/V10U29-117-B1.json \
  --localcores=32 \
  --localmem=128
+ --nosecondary
 ```
 
 ### 2. Parsing the BAM file
