@@ -53,12 +53,16 @@ The files that are required are the BAM file from SpaceRanger which is found in 
 
 Also the spatial barcode file which is a text file of spatial barcodes for each Visium spot. This can be gotten from the first column of the file ```/outs/spatial/tissue_positions.csv``` from SpaceRanger outputs. An example of this file is found here --> ```/homes/cathal.king/LB/AR_kd/SpatialPath/spbar_lists/siCon3_M14_C1_spbars_new.txt```
 
+** The ```tissue_positions.csv``` file is named as ```tissue_positions_list.csv``` depending on the version on SpaceRanger being used.
+
 For sinto, a file or comma-separated list of cell barcodes will suffice. However, a second column is required which is supposed to be the group that each cell belongs to. For this column, I just copied the 2nd column. This might be something else to optimize.
 
 
 #### Method 1: samtools 
 The version of samtools used (**v1.19**) is important here as the only versions dont have that functionality.
 One of the outputs of SpaceRanger is the BAM file which contains the aligned reads. This file can be parsed down to only include reads from a single spatial spot or multiple spots. Each entry of the output BAM file contains a ```CB``` flag and this is used for this process. The user only needs to provide a list of spatial barcodes (spbars.txt) in a text file and the ```samtools view``` command is then as follows:
+
+
 
 ```{bash}
 for i in $(cat PATH/spbars.txt) ; do samtools view -b -d CB:$i /PATH/outs/possorted_genome_bam.bam > $i.bam ; done
