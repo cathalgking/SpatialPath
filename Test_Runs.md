@@ -1,6 +1,7 @@
-## Run SpatialPath (after SpaceRanger) on the mouse dataset from the Seurat tutorial
+## Test SpatialPath (after SpaceRanger) on a larger dataset
+* The mouse dataset from the Seurat tutorial
 
-Download BAM file here --> ```/homes/cathal.king/SP_yard2/test_data```
+BAM file (22G) is here --> ```/homes/cathal.king/SP_yard2/test_data```
 
 Compare 2 methods to Parse BAM file
 
