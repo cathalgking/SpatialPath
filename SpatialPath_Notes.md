@@ -66,6 +66,13 @@ for i in $(cat PATH/spbars.txt) ; do samtools view -b -d CB:$i /PATH/outs/possor
 * ```-b``` flag specifies the output as BAM
 * ```-d``` flag says to only output alignments that match from the ```CB``` entries
 
+Feargal suggested this process could be sped up with the following:
+
+```{bash}
+cat PATH/spbars.txt | xargs -I {} -P <number_of_parallel_processes> sh -c 'samtools view -b -d CB:$1 /PATH/outs/possorted_genome_bam.bam > $1.bam' -- {}
+```
+
+
 #### Method 2: sinto
 
 It turns out that samtools takes a long time to Parse each BAM file (even on the SAHMRI HPC) and is memory intensive. This is because (I think) it is reading down through each BAM file read-by-read and that can be a slow process.
