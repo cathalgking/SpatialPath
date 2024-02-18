@@ -53,7 +53,10 @@ The files that are required are the BAM file from SpaceRanger which is found in 
 
 Also the spatial barcode file which is a text file of spatial barcodes for each Visium spot. This can be gotten from the first column of the file ```/outs/spatial/tissue_positions.csv``` from SpaceRanger outputs. An example of this file is found here --> ```/homes/cathal.king/LB/AR_kd/SpatialPath/spbar_lists/siCon3_M14_C1_spbars_new.txt```
 
-** The ```tissue_positions.csv``` file is named as ```tissue_positions_list.csv``` depending on the version on SpaceRanger being used.
+The ```tissue_positions.csv``` file contains 6 columns but only the first 2 are needed for SpatialPath. The first column contains the 10x spot barcodes and the 2nd column (in_tissue) contains 1/0 based on whether the Visium spot is below tissue. Only the spots associated with tissue are required for SpatialPath (most uses) so subset down that file to extract only the spot barcodes with a "1" entry:
+```awk 'BEGIN{FS=","} NR>1 && $2==1 {print $1}' tissue_positions.csv > barcodes_in_tissue.csv```
+
+** The ```tissue_positions.csv``` file is sometimes named as ```tissue_positions_list.csv``` depending on the version on SpaceRanger being used.
 
 For sinto, a file or comma-separated list of cell barcodes will suffice. However, a second column is required which is supposed to be the group that each cell belongs to. For this column, I just copied the 2nd column. This might be something else to optimize.
 
