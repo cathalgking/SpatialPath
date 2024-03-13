@@ -1,6 +1,6 @@
 # SpatialPath
 
-Raw data is here: ```/homes/feargal.ryan/data/spatial_path/SAGCQA0109_Visium```
+Raw mouse CD40 data is here: ```/homes/feargal.ryan/data/spatial_path/SAGCQA0109_Visium```
 
 ## **Aim**: Pathway Analysis for Spatial Transcriptomics data.
 
