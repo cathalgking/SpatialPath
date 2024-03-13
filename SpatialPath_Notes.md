@@ -1,5 +1,7 @@
 # SpatialPath
 
+Raw data is here: ```/homes/feargal.ryan/data/spatial_path/SAGCQA0109_Visium```
+
 ## **Aim**: Pathway Analysis for Spatial Transcriptomics data.
 
 ### The main steps are:
