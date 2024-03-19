@@ -3,7 +3,8 @@
 Raw mouse CD40 data is here: ```/homes/feargal.ryan/data/spatial_path/SAGCQA0109_Visium```
 
 ```
-All the files and everything for it can be found under /homes/feargal.ryan/programs/SpatialPath. There's a slurm script there called SpatialPath_v1.slurm```
+All the files and everything for it can be found under /homes/feargal.ryan/programs/SpatialPath. There's a slurm script there called SpatialPath_v1.slurm
+```
 
 ## **Aim**: Pathway Analysis for Spatial Transcriptomics data.
 
