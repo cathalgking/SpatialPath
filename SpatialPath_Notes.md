@@ -93,6 +93,11 @@ It turns out that samtools takes a long time to Parse each BAM file (even on the
 
 An alternative package is ```sinto``` which essentially does the same thing but much quicker. Sinto is also ran on the command line and the function to parse down a BAM file is ```filterbarcodes```. An example command would look like:
 
+First, might have to copy the barcodes file to have duplicate columns with:
+
+```awk '{print $0,$NF}' barcodes_in_tissue.csv > new_barcodes.csv```
+
+
 ```{bash}
   sinto filterbarcodes \
   --bam /PATH/possorted_genome_bam.bam \
