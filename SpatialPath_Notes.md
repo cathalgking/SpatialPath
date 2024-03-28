@@ -115,6 +115,11 @@ sinto -v # check installation
 
 sinto --> https://github.com/timoast/sinto
 
+#### Method 3: script that Paul wrote
+
+```/cancer/storage/SAGC/scratch/split_bam_by_tag_noSort.py```
+
+
 ### 3. Assign reads to Features with featureCounts
 
 Use featureCounts to assign reads to features. This command is ran on each BAM file (1 per-spot) and the output will be a txt file.
