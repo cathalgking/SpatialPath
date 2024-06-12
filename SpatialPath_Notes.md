@@ -135,15 +135,16 @@ featureCounts -T 32 -t exon -g gene_id
 This step might vary depending on the data but at the end the featureCounts table should have genes (ENSXXX) as the rownames and 10x spatial barcodes (e.g AACACTTGGCAAGGAA-1) as the colnames.
 
 ```{bash}
-# remove the first row from the file which just has info on the fCount command that was used
-tail -n +2 featureCounts_output.txt > output.txt
-
 # then remove the 2nd to the 6th column which has data that is not needed
 cut -f 1,7- output.txt > output.txt
+
+# remove the first row from the file which just has info on the fCount command that was used
+tail -n +2 featureCounts_output.txt > output.txt
 
 # remove the PATH string from the beginning of each column name. 
 #sed 's#/homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/bams_perSpot/##g' output.txt > output.txt
 # and also remove the ".bam" from each colname
+# the below sed line will do it all in 1 line
 sed 's#/homes/cathal.king/LB/AR_kd/SpatialPath/spbars/siAR3_M14_D1_spbars/bams_perSpot/##g; s/\.bam//g' output.txt > featureCounts_Cleaned.txt
 ```
 
