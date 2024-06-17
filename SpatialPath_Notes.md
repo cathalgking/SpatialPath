@@ -1,5 +1,10 @@
 # SpatialPath
 
+##### MetroMap
+
+<img width="818" alt="SP_metroMap" src="https://github.com/cathalgking/SpatialPath/assets/32261323/04260943-b35f-46a6-accf-c97484dc621d">
+
+
 ### Quick start SpatialPath pipeline:
 
 ```ssh cathal.king@hpc-lin-cmp03```
