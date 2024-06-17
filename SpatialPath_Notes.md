@@ -1,5 +1,26 @@
 # SpatialPath
 
+### Quick start SpatialPath pipeline:
+
+```ssh cathal.king@hpc-lin-cmp03```
+```conda activate nf2```
+
+Example:
+```{bash}
+nextflow run /homes/cathal.king/nf_pipelines/nf-core-spatialpath \
+-profile singularity \
+--reference /homes/cathal.king/References/refdata-gex-GRCh38-2020-A \
+--probeset /homes/cathal.king/nf_pipelines/SP_yard_lung/visium_raw_data/CytAssist_FFPE_Human_Lung_Squamous_Cell_Carcinoma_probe_set.csv \
+--input /homes/cathal.king/nf_pipelines/SP_yard_lung/lung_samplesheet.csv \
+--outdir /homes/cathal.king/SP/testing/running_SP
+```
+
+Quick start notes:
+* The samplesheet contains FASTQ's, image, sample etc.
+* The 
+
+
+
 Raw mouse CD40 data is here: ```/homes/feargal.ryan/data/spatial_path/SAGCQA0109_Visium```
 
 ```
