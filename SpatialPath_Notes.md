@@ -10,6 +10,8 @@
 ```ssh cathal.king@hpc-lin-cmp03```
 ```conda activate nf2```
 
+(singularity only required for a nf-core pipeline)
+
 Example:
 ```{bash}
 nextflow run /homes/cathal.king/nf_pipelines/nf-core-spatialpath \
