@@ -9,10 +9,7 @@
 ```ssh cathal.king@hpc-lin-cmp03```
 ```conda activate nf2```
 
-![image](https://github.com/user-attachments/assets/422fa691-2cde-4404-8762-8c9bf7eb1bf3)
-
-
-(singularity or a suitable conda env is usually required for running a nf-core pipeline)
+Note: singularity or a suitable conda env is usually required for running a nf-core pipeline.
 
 Example:
 ```{bash}
@@ -25,10 +22,7 @@ nextflow run /homes/cathal.king/nf_pipelines/nf-core-spatialpath \
 ```
 
 Quick start notes:
-* The samplesheet contains FASTQ's, image, sample etc.
-* The 
-
-
+* The samplesheet contains FASTQ's, image, sample etc all seperated by commas.
 
 Raw mouse CD40 data is here: ```/homes/feargal.ryan/data/spatial_path/SAGCQA0109_Visium```
 
