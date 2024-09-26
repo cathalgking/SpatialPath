@@ -1,6 +1,6 @@
 # SpatialPath
 
-##### MetroMap
+##### MetroMap of the SpatialPath pipeline
 
 <img width="818" alt="SP_metroMap" src="https://github.com/cathalgking/SpatialPath/assets/32261323/04260943-b35f-46a6-accf-c97484dc621d">
 
@@ -9,6 +9,10 @@
 
 ```ssh cathal.king@hpc-lin-cmp03```
 ```conda activate nf2```
+
+
+![image](https://github.com/user-attachments/assets/422fa691-2cde-4404-8762-8c9bf7eb1bf3)
+
 
 (singularity only required for a nf-core pipeline)
 
