@@ -40,10 +40,6 @@ All the files and everything for it can be found under /homes/feargal.ryan/progr
 5. Use the GSVA R package to assign pathway scores per spot.
 6. Merge GSVA output to spatial object and visualise results.
 
-### Other potential names:
-* SpatialGSVA
-* PathMapR
-* SpatialSignatureMapper
 
 ### Public Spatial Datasets
 
