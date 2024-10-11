@@ -2,7 +2,7 @@
 
 *Under construction...*
 
-SpatialPath provides pathway-level activity scores across spatial transcriptomics datasets, specifically 10X Visium data.
+SpatialPath provides pathway-level activity scores across spatial transcriptomics datasets.
 
 ## Dependencies
 
