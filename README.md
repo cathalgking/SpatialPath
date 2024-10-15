@@ -4,16 +4,9 @@
 
 SpatialPath is a pipeline that provides pathway-level activity scores across spatial omics datasets. The goal of SpatialPath is to process your data so that you can get to the fun part of the analysis quicker.
 
-The workflow for SpatialPath is shown below. Inputs include FASTQ's, along with histology images, which are put through numerous analyses including read mapping, gene expression quantification, spatial binning and pathway activity scoring. Outputs include spatial plots with pathway level scores overlayed across each sample. Data is conveniently formatted within commonly used object structures namely ```SpatialExperiment```, ```Seurat``` and ```Anndata```.
+The workflow for SpatialPath is shown below. Inputs include FASTQ's, along with histology images, which are put through numerous analyses including read mapping, gene expression quantification, spatial binning and pathway activity scoring. Outputs include spatial plots with pathway level scores overlayed across each sample. Data is conveniently formatted within commonly used object structures namely ```SpatialExperiment```, ```Seurat``` and ```Anndata``` which allows for further analyses or plot manipulation.
 
 
-
-## Dependencies
-
-- [SpaceRanger](https://www.10xgenomics.com/support/software/space-ranger/downloads/space-ranger-installation)
-- Seurat
-- R
-- GSVA
 
 ## Installation
 
@@ -24,3 +17,11 @@ To install the remaining dependencies, you can create a conda environment using 
 ```bash
 conda env create -f SpatialPath.yml
 ```
+
+## Dependencies
+
+- [SpaceRanger](https://www.10xgenomics.com/support/software/space-ranger/downloads/space-ranger-installation)
+- Seurat
+- R
+- GSVA
+
