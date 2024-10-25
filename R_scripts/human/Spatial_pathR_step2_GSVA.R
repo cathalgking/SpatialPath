@@ -1,7 +1,22 @@
-msigDB_C5 = readRDS("Rdata/msigDB_C5_mouse.RDS")
+# Get command-line arguments
+args <- commandArgs(trailingOnly = TRUE)
+
+# Check if the path is provided, else use a default value
+if (length(args) == 0) {
+  path_to_installation <- "Rdata"
+} else {
+  path_to_installation <- args[1]
+}
+
+path_to_installation = paste(path_to_installation,"/R_scripts/human/"
+
+# Read in the MSigDB C5 data using the provided installation path
+msigDB_C5 <- readRDS(file.path(path_to_installation, "msigDB_C5_human.RDS"))
 
 # Read in the pathways to plot
-paths_to_plot = read.csv("GO_terms.csv",header = TRUE)
+paths_to_plot <- read.csv(file.path(path_to_installation, "GO_terms.csv"), header = TRUE)
+
+
 paths_to_plot = paths_to_plot[paths_to_plot$Plot==TRUE,1]
 
 paths_to_plot = paths_to_plot[paths_to_plot %in% names(msigDB_C5)]
