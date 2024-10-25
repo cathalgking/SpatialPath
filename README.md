@@ -25,3 +25,9 @@ conda env create -f SpatialPath.yml
 - R
 - GSVA
 
+
+### Genome annotations
+GTF files for the organism you're working with 
+- [Mouse](https://ftp.ensembl.org/pub/release-113/gtf/mus_musculus/Mus_musculus.GRCm39.113.gtf.gz)
+- [Human](https://ftp.ensembl.org/pub/release-113/gtf/homo_sapiens/Homo_sapiens.GRCh38.113.gtf.gz)
+
