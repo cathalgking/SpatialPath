@@ -1,15 +1,12 @@
-msigDB_C5 = readRDS("/homes/feargal.ryan/programs/SpatialPath/Rdata/msigDB_C5_mouse.RDS")
+msigDB_C5 = readRDS("Rdata/msigDB_C5_mouse.RDS")
+
+# Read in the pathways to plot
+paths_to_plot = read.csv("GO_terms.csv",header = TRUE)
+paths_to_plot = paths_to_plot[paths_to_plot$Plot==TRUE,1]
+
+paths_to_plot = paths_to_plot[paths_to_plot %in% names(msigDB_C5)]
 #This will need to be changed but for now it's fine. 
-msigDB_C5 = msigDB_C5[c("GOBP_INNATE_IMMUNE_RESPONSE",
-                        "GOBP_ADAPTIVE_IMMUNE_RESPONSE",
-                        "GOBP_HORMONE_METABOLIC_PROCESS",
-                        "GOBP_MITOTIC_CELL_CYCLE",
-                        "GOBP_AUTOPHAGIC_CELL_DEATH",
-                        "GOBP_ATP_METABOLIC_PROCESS",
-                        "GOBP_DEFENSE_RESPONSE_TO_TUMOR_CELL",
-                        "GOBP_NEURONAL_SIGNAL_TRANSDUCTION",
-                        "GOBP_CARDIOBLAST_DIFFERENTIATION",
-                        "GOBP_PROTEIN_FOLDING")]
+msigDB_C5 = msigDB_C5[paths_to_plot]
 
 my_modules = list()
 

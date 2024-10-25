@@ -4,7 +4,7 @@
 raw_cnts = read.delim("filtered_feature_counts.txt",sep="\t",row.names = 1,check.names = FALSE)
 
 ## Gene ID conversion table
-ens2gene = readRDS("/homes/feargal.ryan/programs/SpatialPath/Rdata/ens2gene.RDS")
+ens2gene = readRDS("Rdata/ens2gene.RDS")
 
 
 
