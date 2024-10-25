@@ -35,7 +35,7 @@ Rscript path_to_SpatialPath/R_scripts/Spatial_pathR_step1_processing_lcpm.R
 
 echo "start_Rscript_2"
 
-Rscript path_to_SpatialPath/R_scripts/Spatial_pathR_step2_GSVA_lipid_ps.R
+Rscript path_to_SpatialPath/R_scripts/Spatial_pathR_step2_GSVA.R
 
 cd ../
 
