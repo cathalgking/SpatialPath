@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate SpatialPath_v0.1 || { echo "Failed to activate conda environment"; exit 1; }
+
 # Default values
 threads=1
 input_folder=""
