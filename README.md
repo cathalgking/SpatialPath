@@ -28,7 +28,7 @@ cd SpatialPath
 ## Usage
 
 ```bash
-./spatialpath.sh -t 28 -i /path/to/spaceranger/output -s mouse
+./spatialpath.sh -t 28 -i /path/to/spaceranger/output -s mouse -p /path/to/spatialpath
 ```
 
 ### Command-Line Options
