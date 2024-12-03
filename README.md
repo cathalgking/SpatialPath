@@ -1,6 +1,6 @@
 # SpatialPath
 
-SpatialPath is a pipeline that provides pathway-level activity scores across spatial omics datasets. The goal of SpatialPath is to process your data so that you can get to the fun part of the analysis quicker.
+SpatialPath is a pipeline that provides pathway-level activity scores across spatial omics datasets. 
 
 The workflow for SpatialPath is shown below. Inputs include FASTQ's, along with histology images, which are put through numerous analyses including read mapping, gene expression quantification, spatial binning and pathway activity scoring. Outputs include spatial plots with pathway level scores overlayed across each sample.
 
