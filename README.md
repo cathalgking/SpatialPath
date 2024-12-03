@@ -42,7 +42,7 @@ cd SpatialPath
 ### Dataset
 ```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment<sup>1</sup> on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. 
 
-![Alt text](./mouse_brain_image.pdf)
+
 
 ### Pathways
 
@@ -52,5 +52,5 @@ Multiple pathways of interest can be input to ```SpatialPath```. For this datase
 
 ```SpatialPath``` has multiple outputs which allow for easy visualisation and customisation. Results are plotted and raw data is stored within commonly used data objects such as ```SpatialExperiment```, ```Seurat``` and ```Anndata``` for easy access and customisation.  
 
-
+![Alt text](svg/mouse_brain_NeuroinflammatoryResponse.svg)
 
