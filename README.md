@@ -37,16 +37,20 @@ cd SpatialPath
 - **`-p <spatialpath_dir>`**: Location of SpatialPath installation
 
 
-
 ## Example
 
-```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. Input pathways included all GO pathways including Neurotransmitter secretion.
+### Dataset
+```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment^1^ on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. 
 
 
 
+### Pathways
 
+```SpatialPath``` takes as input biological pathways of interest and multiple pathways can be input per sample. For this dataset, all GO pathways were input including common neurological pathways such as Neurotransmitter secretion.
 
+### Outputs
 
+```SpatialPath``` has multiple outputs which allow for easy visualisation and customisation. Results are plotted and raw data is stored within commonly used data objects such as ```SpatialExperiment```, ```Seurat``` and ```Anndata``` for easy access and customisation.  
 
 
 
