@@ -51,7 +51,7 @@ cd SpatialPath
 
 ![Alt text](svg/mouse_brain_NeuroinflammatoryResponse.svg)
 
-![Alt text](svg/mouse_brain_NeuroinflammatorySecretion.svg)
+![Alt text](svg/mouse_brain_NeurotransmitterSecretion.svg)
 
 ![Alt text](svg/mouse_brain_LIPID_METABOLIC_PROCESS.svg)
 
