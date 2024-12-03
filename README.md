@@ -5,7 +5,7 @@ SpatialPath is a pipeline that provides pathway-level activity scores across spa
 The workflow for SpatialPath is shown below. Inputs include FASTQ's, along with histology images, which are put through numerous analyses including read mapping, gene expression quantification, spatial binning and pathway activity scoring. Outputs include spatial plots with pathway level scores overlayed across each sample.
 
 
-## Installation
+## Installation Instructions
 
 To set up the **SpatialPath** environment and download the necessary reference files, run the installation script.
 
