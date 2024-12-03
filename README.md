@@ -40,13 +40,10 @@ cd SpatialPath
 ## Example
 
 ### Dataset
-```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment<sup>1</sup> on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. 
+```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment<sup>1</sup> on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. Multiple pathways of interest can be input to ```SpatialPath```. For this dataset, all GO pathways were input including common neurological pathways such as Neurotransmitter secretion.
 
 ![Alt text](svg/mouse_brain_image.svg)
 
-### Pathways
-
-Multiple pathways of interest can be input to ```SpatialPath```. For this dataset, all GO pathways were input including common neurological pathways such as Neurotransmitter secretion.
 
 ### Outputs
 
@@ -59,3 +56,8 @@ Multiple pathways of interest can be input to ```SpatialPath```. For this datase
 ![Alt text](svg/mouse_brain_LIPID_METABOLIC_PROCESS.svg)
 
 ![Alt text](svg/mouse_brain_OXIDATIVE_PHOSPHORYLATION.svg)
+
+
+## References
+
+1 - https://www.10xgenomics.com/datasets/fresh-frozen-visium-on-cytassist-mouse-brain-probe-based-whole-transcriptome-profiling-2-standard
