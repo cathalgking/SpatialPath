@@ -35,3 +35,18 @@ cd SpatialPath
 - **`-i <input_folder>`**: Input folder (must be the output from Spaceranger)
 - **`-s <species>`**: Species (`mouse` or `human`)
 - **`-p <spatialpath_dir>`**: Location of SpatialPath installation
+
+
+
+## Example
+
+```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. Input pathways included all GO pathways including Neurotransmitter secretion.
+
+
+
+
+
+
+
+
+
