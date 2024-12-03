@@ -40,7 +40,7 @@ cd SpatialPath
 ## Example
 
 ### Dataset
-```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment^1^ on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. 
+```SpatialPath``` is demonstrated below on a 10x Visium CytAssist experiment<sup>1</sup> on fresh frozen mouse brain tissue. The tissue section contained 4,298 detected spatial spots (voxels), with a median of 19,627 UMI counts and 6,178 genes per spot. Sequencing was conducted on an Illumina NovaSeq, achieving a sequencing depth of 171,410,389 reads with 38.4% saturation. 
 
 
 
