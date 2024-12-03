@@ -47,7 +47,7 @@ cd SpatialPath
 
 ### Outputs
 
-```SpatialPath``` has multiple outputs which allow for easy visualisation and customisation. One spatial plot visualisation per input pathway will be outputted in PDF format. Raw data is stored within commonly used data objects such as ```SpatialExperiment```, ```Seurat``` and ```Anndata``` for easy access and customisation.  
+```SpatialPath``` has multiple outputs which allow for easy visualisation and customisation. One spatial plot visualisation per input pathway will be outputted in PDF format. Raw data is stored within commonly used data objects namely ```SpatialExperiment```, ```Seurat``` and ```Anndata``` for easy access and customisation.  Below are four example SpatialPath plots, displaying one GO pathway per plot, for the example mouse brain dataset.
 
 ![Alt text](svg/mouse_brain_NeuroinflammatoryResponse.svg)
 
