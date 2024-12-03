@@ -46,7 +46,7 @@ cd SpatialPath
 
 ### Pathways
 
-```SpatialPath``` takes as input biological pathways of interest and multiple pathways can be input per sample. For this dataset, all GO pathways were input including common neurological pathways such as Neurotransmitter secretion.
+Multiple pathways of interest can be input to ```SpatialPath```. For this dataset, all GO pathways were input including common neurological pathways such as Neurotransmitter secretion.
 
 ### Outputs
 
