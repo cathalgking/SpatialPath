@@ -70,7 +70,7 @@ awk 'BEGIN{FS=","} NR>1 && $2==1 {print $1}' "$input_folder/spatial/tissue_posit
 mkdir -p split
 
 # Run samtools split
-samtools view -u -D CB:barcodes_in_tissue.csv possorted_genome_bam.bam | \
+samtools view -u -D CB:barcodes_in_tissue.csv $input_folder/possorted_genome_bam.bam | \
 samtools split -d CB -M 5000 --output-fmt bam -f 'split/%!.bam' -
 
 # Run featureCounts
