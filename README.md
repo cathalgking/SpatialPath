@@ -17,7 +17,7 @@ To set up the **SpatialPath** environment and download the necessary reference f
 ```bash
 git clone https://github.com/cathalgking/SpatialPath.git
 cd SpatialPath
-./install_spatialpath.sh
+./install_SpatialPath.sh
 ```
 
 
