@@ -50,7 +50,7 @@ fi
 # Select GTF file based on species
 gtf_file=""
 if [[ "$species" == "mouse" ]]; then
-  gtf_file="$spatialpath_dir/references/Mus_musculus.GRCm38.113.gtf"
+  gtf_file="$spatialpath_dir/references/Mus_musculus.GRCm39.113.gtf"
 elif [[ "$species" == "human" ]]; then
   gtf_file="$spatialpath_dir/references/Homo_sapiens.GRCh38.113.gtf"
 fi
@@ -80,8 +80,6 @@ featureCounts -T "$threads" -t exon -g gene_id -a "$gtf_file" -o featureCounts_S
 cut -f1-5 -d " " featureCounts_SP.txt | sed 's/split\///g' | cut -f 1,7- | grep -v ";" > filtered_feature_counts.txt
 
 # Run R scripts
-Rscript "$spatialpath_dir/R_scripts/$species/Spatial_pathR_step1_processing_lcpm.R"
-Rscript "$spatialpath_dir/R_scripts/$species/Spatial_pathR_step2_GSVA.R" $spatialpath_dir
-
-cd ../
-Rscript "$spatialpath_dir/R_scripts/$species/Spatial_pathR_step3_Seurat.R"
+Rscript "$spatialpath_dir/R_scripts/Spatial_pathR_step1_processing_lcpm.R" "$spatialpath_dir" "$species"
+Rscript "$spatialpath_dir/R_scripts/Spatial_pathR_step2_GSVA.R" "$spatialpath_dir" "$species"
+Rscript "$spatialpath_dir/R_scripts/Spatial_pathR_step3_Seurat.R" "$input_folder"
